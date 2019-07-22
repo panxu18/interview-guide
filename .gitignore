@@ -2,3 +2,4 @@
 *.class
 *.prefs
 .settings/org.eclipse.jdt.core.prefs
+target/classes/META-INF/maven/com.xup/interview-guide/pom.properties
