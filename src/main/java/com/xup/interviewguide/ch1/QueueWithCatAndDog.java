@@ -1,12 +1,10 @@
 package com.xup.interviewguide.ch1;
 
-import java.rmi.server.Operation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class QueueWithCatAndDog {
 
