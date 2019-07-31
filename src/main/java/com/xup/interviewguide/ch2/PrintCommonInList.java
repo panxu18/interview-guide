@@ -33,6 +33,29 @@ public class PrintCommonInList {
 			sb.append("]");
 			System.out.println(sb);
 		}
+		
+		public static void printCircle(ListNode head) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			ListNode node = head;
+			while (node != null) {
+				sb.append(node.val);
+				sb.append(",");
+				if (node.next == head)
+					break;
+				node = node.next;
+			}
+			if (sb.charAt(sb.length() - 1) == ',')
+				sb.deleteCharAt(sb.length() - 1);
+			sb.append("]");
+			System.out.println(sb);
+		}
+		
+		public static ListNode getTailNode(ListNode head) {
+			while (head != null && head.next != null)
+				head = head.next;
+			return head;
+		}
 	}
 
 	public void pritCommonPart(ListNode head1, ListNode head2) {
