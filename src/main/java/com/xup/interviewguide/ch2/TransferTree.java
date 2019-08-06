@@ -1,6 +1,9 @@
 package com.xup.interviewguide.ch2;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class TransferTree {
 
@@ -14,6 +17,10 @@ public class TransferTree {
 
 	    }
 	    
+	    /*
+	     * 二叉树序列化
+	     * 以先序遍历的方式序列化二叉树，节点之间用逗号隔开，空节点用#表示
+	     */
 	    public static String serialize(TreeNode root) {
 	        StringBuilder sb = new StringBuilder();
 	        preOrderToSerialize(root,sb);
@@ -31,26 +38,26 @@ public class TransferTree {
 	        preOrderToSerialize(root.right, sb);
 	    }
 	    
-	    static int RECUR_INDEX = 0;
-	    public static TreeNode deserializeRecur(String str) throws Throwable {
-	    	if (str == null || str.length() <= 0 || str.charAt(0) == '#')
-	            return null;
-	    	String[] strs = str.split(",");
-	    	RECUR_INDEX = 0;
-	    	return deserializeRecurCore(strs);
-	    }
+	    public static TreeNode deserialize(String str) {
+			if (str == null || str.charAt(0) == '#')
+				return null;
+			String[] strs = str.split(",");
+			LinkedList<String> result = Arrays.stream(strs)
+					.collect(Collectors.toCollection(LinkedList::new));
+			return deserializeCore(result);
+		}
 	    
-	    public static TreeNode deserializeRecurCore(String[] strs) throws Throwable {
-	    	if (RECUR_INDEX >= strs.length)
-	    		throw new Throwable("input is not a tree");
-	    	String val = strs[RECUR_INDEX++];
-	    	if (val.equals("#"))
-	    		return null;
-	    	TreeNode root = new TreeNode(Integer.valueOf(val));
-	    	root.left = deserializeRecurCore(strs);
-	    	root.right = deserializeRecurCore(strs);
-	    	return root;
-	    }
+	    private static TreeNode deserializeCore(LinkedList<String> list) {
+			String val = null;
+			if (list.isEmpty() || (val = list.pollFirst()).equals("#"))
+				return null;
+			TreeNode root = new TreeNode(Integer.valueOf(val));
+			root.left = deserializeCore(list);
+			root.right = deserializeCore(list);
+			return root;
+		}
+	    
+	    static int RECUR_INDEX = 0;
 	    
 	    public static TreeNode deserializeWithLoop(String str) {
 	    	if (str == null || str.length() <= 0 || str.charAt(0) == '#')
@@ -81,9 +88,8 @@ public class TransferTree {
 		public String toString() {
 			return serialize(this);
 		}
-	    
-	    
 	}
+	
 	TreeNode head = new TreeNode(-1);
 	TreeNode tail = head;
 	

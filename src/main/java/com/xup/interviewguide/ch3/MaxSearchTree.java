@@ -4,7 +4,9 @@ import com.xup.interviewguide.ch2.TransferTree.TreeNode;
 
 public class MaxSearchTree {
 	
+	//最大搜索二叉树根节点
 	private TreeNode MAX_SEARCH_TREE;
+	//最大搜索二叉大小
 	private int MAX_SEARCH_TREE_SIZE;
 	
 	
@@ -14,7 +16,7 @@ public class MaxSearchTree {
 	 * 
 	 * 判断一个二叉树是不是搜索二叉树一般的方法就是利用先序遍历，如果
 	 * 先序遍历序列是升序则是搜索二叉树，如果将此方法应用到本题，那么需要
-	 * 对遍历所有子树。
+	 * 遍历所有子树。
 	 * 
 	 * 判断一个二叉树是不是搜索二叉树第二种方法的步骤如下
 	 * 1、先判断其左右子树是否是搜索二叉树，如果不是那么原二叉树不是搜索二叉树
@@ -25,8 +27,8 @@ public class MaxSearchTree {
 	 * 如果将第二种方法应用与本题，那么很容易得到一个递归程序
 	 * 1、如果空节点返回0
 	 * 2、如果是叶子节点返回1
-	 * 3、如果左子树不是二叉搜索树，返回-1
-	 * 4、如果右子不是二叉搜索树，返回-1
+	 * 3、递归判断左子树，如果左子树不是二叉搜索树，返回-1
+	 * 4、递归判断右子树，如果右子不是二叉搜索树，返回-1
 	 * 5、如果节点的值是否小于左子树的最右节点的值，返回-1
 	 * 6、如果节点的值大于右子树的最左节点的值，返回-1
 	 */
@@ -37,7 +39,14 @@ public class MaxSearchTree {
 		return MAX_SEARCH_TREE;
 	}
 
-	
+	/* 
+	 * 1、如果空节点返回0（返回值代表树的大小）
+	 * 2、如果是叶子节点返回1
+	 * 3、递归判断左子树，如果左子树不是二叉搜索树，返回-1
+	 * 4、递归判断右子树，如果右子不是二叉搜索树，返回-1
+	 * 5、如果节点的值是否小于左子树的最右节点的值，返回-1
+	 * 6、如果节点的值大于右子树的最左节点的值，返回-1
+	 */
 	private int getMaxSearchTreeCore(TreeNode root) {
 		if (root == null)
 			return 0;
@@ -48,13 +57,15 @@ public class MaxSearchTree {
 			}
 			return 1;
 		}
+		
 		int sizeLeft = -1;
 		int sizeRight = -1;
 		if ((sizeLeft = getMaxSearchTreeCore(root.left)) < 0 
 				|| (sizeRight = getMaxSearchTreeCore(root.right)) < 0
-				|| (root.left != null && getMostRightNode(root.left).val > root.val)
-				|| (root.right != null && getMostLeftNode(root.right).val < root.val))
+				|| (root.left != null && getMaxNode(root.left).val > root.val)
+				|| (root.right != null && getMinNode(root.right).val < root.val))
 			return -1;
+		
 		int sizeTotal = sizeLeft + sizeRight + 1;
 		if (sizeTotal > MAX_SEARCH_TREE_SIZE) {
 			MAX_SEARCH_TREE = root;
@@ -63,14 +74,20 @@ public class MaxSearchTree {
 		return sizeTotal;
 	}
 	
-	private TreeNode getMostRightNode(TreeNode root) {
+	/*
+	 * 查找搜索二叉树最大节点
+	 */
+	private TreeNode getMaxNode(TreeNode root) {
 		assert root != null;
 		while (root.right != null)
 			root = root.right;
 		return root;
 	}
 	
-	private TreeNode getMostLeftNode(TreeNode root) {
+	/*
+	 * 查找搜索二叉树最小节点
+	 */
+	private TreeNode getMinNode(TreeNode root) {
 		assert root != null;
 		while (root.left != null)
 			root = root.left;

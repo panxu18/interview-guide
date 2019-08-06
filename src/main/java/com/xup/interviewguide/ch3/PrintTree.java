@@ -36,7 +36,7 @@ public class PrintTree {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		TreeNode root = TreeNode.deserializeRecur("1,2,#,4,7,#,#,8,#,11,13,#,#,14,#,#,"
+		TreeNode root = TreeNode.deserialize("1,2,#,4,7,#,#,8,#,11,13,#,#,14,#,#,"
 				+ "3,5,9,12,15,#,#,16,#,#,#,10,#,#,6,#,#,");
 		new PrintTree().print(root, 0, NodeType.ROOT);
 	}
