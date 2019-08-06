@@ -79,7 +79,7 @@ public class TransferTree {
 
 		@Override
 		public String toString() {
-			return "[val=" + val + "]";
+			return serialize(this);
 		}
 	    
 	    

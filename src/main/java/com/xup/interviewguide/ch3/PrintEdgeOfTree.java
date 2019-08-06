@@ -18,7 +18,7 @@ import com.xup.interviewguide.ch2.TransferTree.TreeNode;
  * 通过先序遍历可以保证左边的节点一定比右边的节点先输出，
  * 右边界节点从下到上输出保证逆时针的顺序
  * 
- * 标准2 题目意思和给的实例结果感觉有点不符合
+ * 标准2    题目意思和给的实例结果感觉有点不符合
  */
 public class PrintEdgeOfTree {
 
