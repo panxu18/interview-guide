@@ -2,6 +2,7 @@ package com.xup.interviewguide.ch2;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,34 @@ public class TransferTree {
 	    public TreeNode(int val) {
 	        this.val = val;
 
+	    }
+	    
+	    public int getVal() {
+	    	return val;
+	    }
+	    
+	    public static TreeNode buildTree() {
+	    	Scanner in = new Scanner(System.in);
+	    	if (in.hasNext()) {
+	    		in.nextLine();
+	    		return buildTreeCore(in);
+	    	}
+	    	return null;
+	    }
+	    
+	    public static TreeNode buildTreeCore(Scanner in) {
+	    	while (in.hasNext()) {
+	    		int val = in.nextInt();
+	    		TreeNode root = new TreeNode(val);
+	    		int valLeft = in.nextInt();
+	    		int valRight = in.nextInt();
+	    		if (valLeft != 0)
+	    			root.left = buildTreeCore(in);
+	    		if (valRight != 0)
+	    			root.right = buildTreeCore(in);
+	    		return root;
+	    	}
+	    	return null;
 	    }
 	    
 	    /*
