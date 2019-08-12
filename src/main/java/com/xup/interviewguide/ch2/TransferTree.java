@@ -15,7 +15,6 @@ public class TransferTree {
 
 	    public TreeNode(int val) {
 	        this.val = val;
-
 	    }
 	    
 	    public int getVal() {
@@ -24,26 +23,29 @@ public class TransferTree {
 	    
 	    public static TreeNode buildTree() {
 	    	Scanner in = new Scanner(System.in);
-	    	if (in.hasNext()) {
-	    		in.nextLine();
-	    		return buildTreeCore(in);
-	    	}
-	    	return null;
+	    	return buildTree(in);
 	    }
+
+		public static TreeNode buildTree(Scanner in) {
+			if (in.hasNext()) {
+				in.nextLine();
+				return buildTreeCore(in);
+			}
+			return null;
+		}
 	    
 	    public static TreeNode buildTreeCore(Scanner in) {
-	    	while (in.hasNext()) {
-	    		int val = in.nextInt();
-	    		TreeNode root = new TreeNode(val);
-	    		int valLeft = in.nextInt();
-	    		int valRight = in.nextInt();
-	    		if (valLeft != 0)
-	    			root.left = buildTreeCore(in);
-	    		if (valRight != 0)
-	    			root.right = buildTreeCore(in);
-	    		return root;
-	    	}
-	    	return null;
+	    	if (!in.hasNext())
+	    		throw new RuntimeException("输入数据不完整");
+			int val = in.nextInt();
+			TreeNode root = new TreeNode(val);
+			int valLeft = in.nextInt();
+			int valRight = in.nextInt();
+			if (valLeft != 0)
+				root.left = buildTreeCore(in);
+			if (valRight != 0)
+				root.right = buildTreeCore(in);
+			return root;
 	    }
 	    
 	    /*
