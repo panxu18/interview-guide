@@ -158,8 +158,6 @@ public class CommonAncestorNode {
 				 *  那么两个节点的共同节点为前一个节点的祖先
 				 */
 				if (queryMap.get(cur.val) != null) {
-					if (cur.val == 38)
-						System.out.println("test");
 					for (Integer v : queryMap.get(cur.val)) {
 						int ancestor = getAncestor(ancestorMap, v);
 						if (ancestor != 0
