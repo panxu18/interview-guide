@@ -6,41 +6,27 @@ public class NumsOfTree {
 
 	public static long getNums(int n) {
 		assert n > 0;
-		long[] f = new long[n + 1];
-		f[0] = 1;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= i; j++) {
-				f[i] += (f[j - 1] * f[i - j]); 
-				f[i] %= 1_000_000_007;
-			}
+		int mod = 1_000_000_007;
+		long result = 1;
+		//求逆元
+		long[] inv = new long[n + 3];
+		inv[1] = 1;
+		for (int i = 2; i < n + 3; i++) {
+			inv[i] = (mod - mod / i) * inv[mod % i] % mod;
 		}
-		return f[n];
+		// 卡特兰数
+		for (int i = 0; i < n; i++) {
+			result = 2 * (2 * i + 1) * inv[i + 2] % mod * result % mod;
+		}
+		return result;
 	}
 	
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		int n = input.nextInt();
-		System.out.println(getNums(n));
+		try(Scanner input = new Scanner(System.in)) {
+			while (input.hasNext()) {
+				int n = input.nextInt();
+				System.out.println(getNums(n));
+			}
+		}
 	}
-	
-//	public static void main(String[] args){
-//        Scanner in = new Scanner(System.in);
-//        while(in.hasNext()){
-//            int N = in.nextInt();
-//            if(N<2){
-//                System.out.println(1);
-//                continue;
-//            }
-//            long[] dp = new long[N+1];
-//            dp[0] = 1;
-//            for(int i = 1;i<=N;i++){
-//                for(int j = 1;j<=i;j++){
-//                    dp[i] += (dp[j-1]*dp[i-j])%1000000007;
-//                    dp[i] %= 1000000007;
-//                }
-//            }
-//            System.out.println(dp[N]%1000000007);
-//        }
-//        in.close();
-//    }
 }
