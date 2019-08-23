@@ -1,25 +1,22 @@
 package com.xup.interviewguide.ch3;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ReConstructBSTree {
 	
-	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		int len;
-		ArrayList<Integer> list;
-		while (input.hasNext()) {
-			len = input.nextInt();
-			list = new ArrayList<>(len);
-			while (len-- > 0) {
-				list.add(input.nextInt());
-			}
-			System.out.println(constructBSTree(list, 0, list.size()));
-		}
-		
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] strs = br.readLine().split(" ");
+        int n = Integer.parseInt(strs[0]);
+        if (n == 0)
+            return;
+        strs = br.readLine().split(" ");
+        int[] list = new int[n];
+        for (int i = 0; i < n; i++)
+            list[i] = Integer.parseInt(strs[i]);
+        System.out.println(constructBSTree(list, 0, n));
 	}
 	
 	/**
@@ -30,15 +27,15 @@ public class ReConstructBSTree {
 	 * @param end 区间终止索引（不包含）
 	 * @return
 	 */
-	private static boolean constructBSTree(ArrayList<Integer> list, int start, int end) {
-		if (list == null || start >= end || end > list.size())
+	private static boolean constructBSTree(int[] list, int start, int end) {
+		if (list == null || start >= end || end > list.length)
 			return true;
-		int valRoot = list.get(end - 1);
+		int valRoot = list[end - 1];
 		int mid = start;
-		while (mid < end - 1 && list.get(mid) < valRoot)
+		while (mid < end - 1 && list[mid] < valRoot)
 			mid++;
 		int t = mid;
-		while (t < end -1 && list.get(t) > valRoot)
+		while (t < end -1 && list[t] > valRoot)
 			t++;
 		return t == end - 1
 				&& constructBSTree(list, start, mid)
