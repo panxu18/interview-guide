@@ -24,7 +24,8 @@ public class HanoiProblem {
 				to = mid;
 				mid = temp;
 			} else if (arr[i] == to) {
-				sum += count[i] % 1000000007;
+				sum += count[i];
+				sum %= 1000000007;
 				temp = from;
 				from = mid;
 				mid = temp;
